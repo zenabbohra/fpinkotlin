@@ -1,6 +1,8 @@
 package chapter3.exercises.ex10
 
+import chapter3.Cons
 import chapter3.List
+import chapter3.Nil
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.WordSpec
 import utils.SOLUTION_HERE
@@ -10,9 +12,10 @@ fun sumL(xs: List<Int>): Int =
 
     SOLUTION_HERE()
 
-fun productL(xs: List<Double>): Double =
-
-    SOLUTION_HERE()
+fun productL(xs: List<Double>): Double = when (xs) {
+    is Nil -> 1.0
+    is Cons -> if (xs.head == 0.0) 0.0 else xs.head * productL(xs.tail)
+}
 
 fun <A> lengthL(xs: List<A>): Int =
 
@@ -27,7 +30,7 @@ class Exercise10 : WordSpec({
         }
     }
 
-    "!list productL" should {
+    "list productL" should {
         "multiply all doubles" {
             productL(List.of(1.0, 2.0, 3.0, 4.0, 5.0)) shouldBe
                 120.0
